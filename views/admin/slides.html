@@ -1,0 +1,78 @@
+{{ extend './layouts/layout.html' }}
+
+{{ block 'head' }}
+<style></style>
+{{ /block }}
+
+{{ block 'body' }}
+<div class="container-fluid">
+  <div class="page-title">
+    <h1>图片轮播</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <form id="addSlides_form">
+        <h2>添加新轮播内容</h2>
+        <div class="form-group">
+          <label for="image">图片</label>
+          <img name="showSilde" class="help-block thumbnail" style="display: none">
+          <input id="slidesFile" class="form-control" name="pic_url" type="file">
+        </div>
+        <div class="form-group">
+          <label for="text">文本</label>
+          <input id="text" class="form-control" name="pic_text" type="text" placeholder="文本">
+        </div>
+        <div class="form-group">
+          <label for="link">链接</label>
+          <input id="link" class="form-control" name="pic_link" type="text" placeholder="链接，因为是测试项目，尽量填写 #">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">添加</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <div class="page-action">
+        <a name="deleteAll" class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
+      </div>
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="text-center" width="40">
+              <input name="selectAll" type="checkbox">
+            </th>
+            <th>序号</th>
+            <th class="text-center">图片</th>
+            <th>文本</th>
+            <th>链接</th>
+            <th class="text-center" width="100">操作</th>
+          </tr>
+        </thead>
+        <tbody id="list_container"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{{ /block }}
+
+{{ block 'script' }}
+<script type="text/template" id="list_template">
+{% each list %}
+<tr>
+  <td class="text-center">
+    <input data-id="{% $value.pic_id %}" name="select" type="checkbox">
+  </td>
+  <td>{% $index + 1 %}</td>
+  <td class="text-center">
+    <img name="slidesPic{% $value.pic_id %}" onerror="slidePic({% $value.pic_id %})" class="slide" src="{% $value.pic_url %}">
+  </td>
+  <td>{% $value.pic_text %}</td>
+  <td>{% $value.pic_link %}</td>
+  <td class="text-center">
+    <a name="destroy" data-id="{% $value.pic_id %}" href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+  </td>
+</tr>
+{% /each %}
+</script>
+<script src="/public/assets/js/admin/slides.js"></script>
+{{ /block }}

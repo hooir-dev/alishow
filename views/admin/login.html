@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Sign in &laquo; Admin</title>
+  <link rel="stylesheet" href="/public/assets/vendors/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/assets/css/admin.css">
+  <style>
+    form label.error {
+      color: red !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="login">
+    <form class="login-wrap" id="login_form">
+      <img class="avatar" src="/public/assets/img/default.png">
+      <div class="form-group">
+        <label for="email" class="sr-only">邮箱</label>
+        <input name="admin_email" id="email" type="email" class="form-control" placeholder="邮箱" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password" class="sr-only">密码</label>
+        <input name="admin_pwd" id="password" type="password" class="form-control" placeholder="密码">
+      </div>
+      <div class="form-group">
+        <input name="remember" id="rememner" type="checkbox" class="form-control" placeholder="密码" style="display: inline-block; width: 25px; vertical-align: middle;">
+        <label for="rememner">记住我（免密登陆时效为 1 个小时）</label>
+      </div>
+      <button class="btn btn-primary btn-block">登 录</button>
+    </form>
+  </div>
+
+  <script src="/public/assets/vendors/jquery/jquery.min.js"></script>
+  <script src="/public/assets/vendors/jquery-validation/jquery.validate.js"></script>
+  <script src="/public/assets/vendors/jquery-validation/localization/messages_zh.js"></script>
+  <script src="/public/assets/vendors/layer/layer.js"></script>
+  <script src="/public/assets/js/admin/login.js"></script>
+</body>
+</html>

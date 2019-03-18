@@ -1,0 +1,74 @@
+{{ extend './layouts/layout.html' }}
+
+{{ block 'head' }}
+<style></style>
+{{ /block }}
+
+{{ block 'body' }}
+<div class="container-fluid">
+  <div class="page-title">
+    <h1>所有评论</h1>
+  </div>
+  <div class="page-action">
+    <form class="form-inline">
+      <select name="state_select" class="form-control input-sm">
+        <option value="">所有状态</option>
+        <option value="已批准">已批准</option>
+        <option value="未批准">未批准</option>
+      </select>
+      <button type="button" name="screen" class="btn btn-default btn-sm">筛选</button>
+    </form>
+    <div name="all" class="btn-batch" style="display: none">
+      <button name="approvalAll" class="btn btn-info btn-sm">批量批准</button>
+      <button name="refuseAll" class="btn btn-warning btn-sm">批量拒绝</button>
+      <button name="deleteAll" class="btn btn-danger btn-sm">批量删除</button>
+    </div>
+    <div class="demo customBootstrap">
+      <p>当前第 <span id="demo2-text"></span> 页</p>
+      <ul id="demo2" class="pagination"></ul>
+    </div>
+  </div>
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="text-center" width="40">
+          <input name="selectAll" type="checkbox">
+        </th>
+        <th>作者</th>
+        <th>评论</th>
+        <th>评论在</th>
+        <th>提交于</th>
+        <th>状态</th>
+        <th class="text-center" width="100">操作</th>
+      </tr>
+    </thead>
+    <tbody id="list_container"></tbody>
+  </table>
+</div>
+{{ /block }}
+
+{{ block 'script' }}
+<script type="text/template" id="list_template">
+  {% each list %}
+  <tr>
+    <td class="text-center">
+      <input data-id="{% $value.cmt_id %}" name="select" type="checkbox">
+    </td>
+    <td>{% $value.member_nickname %}</td>
+    <td>{% $value.cmt_content %}</td>
+    <td>《{% $value.article_title %}》</td>
+    <td>{% $value.cmt_addtime %}</td>
+    <td>{% $value.cmt_state %}</td>
+    <td class="text-center">
+      {% if $value.cmt_state === '未批准' %}
+      <a data-id="{% $value.cmt_id %}" name="approval" href="javascript:;" class="btn btn-info btn-xs">批准</a>
+      {% else %}
+      <a data-id="{% $value.cmt_id %}" name="refuse" href="javascript:;" class="btn btn-warning btn-xs">驳回</a>
+      {% /if %}
+      <a data-id="{% $value.cmt_id %}" name="delete" href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+    </td>
+  </tr>
+  {% /each %}
+</script>
+<script src="/public/assets/js/admin/comments.js"></script>
+{{ /block }}

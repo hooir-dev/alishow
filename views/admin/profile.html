@@ -1,0 +1,66 @@
+{{ extend './layouts/layout.html' }}
+
+{{ block 'head' }}
+<style></style>
+{{ /block }}
+
+{{ block 'body' }}
+<div class="container-fluid">
+  <div class="page-title">
+    <h1>我的个人资料</h1>
+  </div>
+  <form id="userInfo_form" class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">头像</label>
+      <div class="col-sm-6">
+        <label class="form-image">
+          <input id="avatar" type="file">
+          <img name="showAvatar" src="/public/assets/img/default.png">
+          <i class="mask fa fa-upload"></i>
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="col-sm-3 control-label">邮箱</label>
+      <div class="col-sm-6">
+        <input id="email" class="form-control" name="admin_email" type="type" value="admin@itcast.cn" placeholder="邮箱" disabled>
+        <p class="help-block">登录邮箱不允许修改</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="slug" class="col-sm-3 control-label">别名</label>
+      <div class="col-sm-6">
+        <input id="slug" class="form-control" name="admin_slug" type="type" value="adin" placeholder="slug">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="nickname" class="col-sm-3 control-label">昵称</label>
+      <div class="col-sm-6">
+        <input id="nickname" class="form-control" name="admin_nickname" type="type" value="管理员" placeholder="昵称">
+        <p class="help-block">限制在 2-10 个字符</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="bio" class="col-sm-3 control-label">简介</label>
+      <div class="col-sm-6">
+        <textarea name="admin_sign" id="bio" class="form-control" placeholder="Bio" cols="30" rows="6">Hello World!</textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-6">
+        <button type="submit" class="btn btn-primary">更新</button>
+        <a class="btn btn-link" href="/admin/passwordReset">修改密码</a>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <input class="form-control" name="admin_id" type="hidden">
+      </div>
+    </div>
+  </form>
+</div>
+{{ /block }}
+
+{{ block 'script' }}
+<script src="/public/assets/js/admin/profile.js"></script>
+{{ /block }}

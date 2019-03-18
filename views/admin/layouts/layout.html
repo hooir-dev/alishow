@@ -1,0 +1,120 @@
+<!-- 后台管理系统 layout 页面 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard &laquo; Admin</title>
+  <link rel="stylesheet" href="/public/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/public/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/public/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/public/assets/vendors/weatherstar-switch/css/switch.css">
+  <link rel="stylesheet" href="/public/assets/css/admin.css">
+  <style>
+    form label.error {
+      color: red !important;
+    }
+  </style>
+  <script src="/public/assets/vendors/nprogress/nprogress.js"></script>
+  {{block 'head'}}{{/block}}
+</head>
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <button class="btn btn-default navbar-btn fa fa-bars"></button>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/admin/profile"><i class="fa fa-user"></i>个人中心</a></li>
+        <li><a href="javascript:;" name="logout"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    {{block 'body'}}{{/block}}
+  </div>
+  <div class="aside">
+    <div class="profile">
+      <img class="avatar" onerror="userPic()" src="{{ sessionUser.admin_pic }}">
+      <h3 class="name">{{ sessionUser.admin_nickname }}</h3>
+    </div>
+    <ul class="nav">
+      <li class="{{ page === 'index' ? 'active' : '' }}">
+        <a href="/admin"><i class="fa fa-dashboard"></i>仪表盘</a>
+      </li>
+      <li class="{{ page === 'posts' ? 'active' : '' }}">
+        <a href="#menu-posts" class="{{ page === 'posts' ? '' : 'collapsed' }}" data-toggle="collapse">
+          <i class="fa fa-thumb-tack"></i>文章<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-posts" class="collapse {{ page === 'posts' ? 'in' : '' }}">
+          <li class="{{ child === 'posts' ? 'active' : '' }}"><a href="/admin/posts">所有文章</a></li>
+          <li class="{{ child === 'postsAdd' ? 'active' : '' }}"><a href="/admin/posts/add">写文章</a></li>
+          <li class="{{ child === 'categories' ? 'active' : '' }}"><a href="/admin/categories">分类目录</a></li>
+        </ul>
+      </li>
+      <li class="{{ page === 'comments' ? 'active' : '' }}">
+        <a href="/admin/comments"><i class="fa fa-comments"></i>评论</a>
+      </li>
+      <li class="{{ page === 'users' ? 'active' : '' }}">
+        <a href="/admin/users"><i class="fa fa-users"></i>用户</a>
+      </li>
+      <li class="{{ page === 'setting' ? 'active' : '' }}">
+        <a href="#menu-settings" class="{{ page === 'setting' ? '' : 'collapsed' }}" data-toggle="collapse">
+          <i class="fa fa-cogs"></i>设置<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-settings" class="collapse {{ page === 'setting' ? 'in' : '' }}">
+          <li class="{{ child === 'menus' ? 'active' : '' }}"><a href="/admin/menus">导航菜单</a></li>
+          <li class="{{ child === 'slides' ? 'active' : '' }}"><a href="/admin/slides">图片轮播</a></li>
+          <li class="{{ child === 'settings' ? 'active' : '' }}"><a href="/admin/settings">网站设置</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <script src="/public/assets/vendors/jquery/jquery.js"></script>
+  <script src="/public/assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/public/assets/vendors/art-template/template-web.js"></script>
+  <script src="/public/assets/vendors/jquery-validation/jquery.validate.js"></script>
+  <script src="/public/assets/vendors/jquery-validation/localization/messages_zh.js"></script>
+  <script src="/public/assets/vendors/weatherstar-switch/js/switch.js"></script>
+  <script src="/public/assets/vendors/jqPaginator/jq-paginator.min.js"></script>
+  <script src="/public/assets/vendors/layer/layer.js"></script>
+  <script src="/public/assets/js/admin/public.js"></script>
+  <script>
+    NProgress.done()
+
+    function userPic() {
+      $('img.avatar').attr('src', '/public/uploads/profilePic/avatar-max-img.png')
+    }
+
+    function avatarPic(id) {
+      $(`[name=avatar${id}]`).attr('src', '/public/assets/img/default.png')
+    }
+
+    function postsPic() {
+      $('img[name=showPic]').attr('src', '/public/assets/img/default.png').hide()
+      layer.alert('您的特色图像已经被删除，请重新', {
+        skin: 'layui-layer-lan',
+        btn: ['确定'],
+        time: 2000,
+        closeBtn: 0
+      }, (index) => {
+        layer.close(index)
+      })
+    }
+
+    function slidePic(id) {
+      $(`img[name=slidesPic${id}]`).removeAttr('src')
+    }
+
+    // 登出操作
+    $('a[name=logout]').click(function () {
+    layer.alert('您确定要离开吗？', {
+      skin: 'layui-layer-molv',
+      btn: ['确定', '取消'],
+      closeBtn: 1
+    }, () => {
+      window.location.href = '/admin/logout'
+    })
+  })
+  </script>
+  {{block 'script'}}{{/block}}
+</body>
+</html>
